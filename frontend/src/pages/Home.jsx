@@ -1,15 +1,17 @@
 import { useState } from "react";
+import { IconBrain, IconChevron, IconCode, IconEdit, IconGlobe, IconImage, IconMenu, IconMic, IconPlus, IconTheme, IconWave } from "../components/Icons.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 
-const chatIntro = [
-  "Pesquisar na web",
-  "Gerar Imagens",
-  "Persuasão",
-  "Programar",
+const actions = [
+  { label: "Pesquisar", icon: IconGlobe, color: "#3b82f6" },
+  { label: "Gerar Imagens", icon: IconImage, color: "#eab308" },
+  { label: "Persuasão", icon: IconBrain, color: "#dc2626" },
+  { label: "Programar", icon: IconCode, color: "#16a34a" },
 ];
 
-/** App principal: hero + composer + painéis da sidebar. */
+/** Tela inicial: replica do print mobile (20:46) com drawer (20:47). */
 export default function Home() {
+  const [open, setOpen] = useState(false);
   const [active, setActive] = useState("Novo chat");
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState([]);
@@ -18,50 +20,66 @@ export default function Home() {
     event.preventDefault();
     const text = draft.trim();
     if (!text) return;
-    setMessages((prev) => [...prev, { role: "user", text }]);
-    setDraft("");
     setMessages((prev) => [
       ...prev,
-      {
-        role: "assistant",
-        text:
-          "Clone de interface: sem backend conectado. Implante o backend/ e aponte a API para respostas reais.",
-      },
+      { role: "user", text },
+      { role: "assistant", text: "Clone de interface: sem backend conectado. Implante o backend/ e aponte a API para respostas reais." },
     ]);
+    setDraft("");
   };
 
   return (
-    <div className="layout">
-      <Sidebar active={active} onSelect={setActive} />
-      <main className="main">
+    <div className="app">
+      <Sidebar open={open} onClose={() => setOpen(false)} active={active} onSelect={setActive} />
+      <header className="topbar">
+        <button type="button" className="icon-btn" onClick={() => setOpen(true)} aria-label="Abrir menu">
+          <IconMenu />
+        </button>
+        <button type="button" className="model" aria-label="Modelo SKYNETchat 4.5">
+          <span>SKYNETchat</span>
+          <b>4.5</b>
+          <IconChevron className="chev" width={16} height={16} />
+        </button>
+        <div className="top-actions">
+          <button type="button" className="icon-btn" aria-label="Tema"><IconTheme /></button>
+          <button type="button" className="icon-btn" aria-label="Novo chat" onClick={() => setMessages([])}><IconEdit /></button>
+        </div>
+      </header>
+
+      <main className="stage">
         {messages.length === 0 ? (
-          <div className="hero">
-            <h1>Apresentamos o SKYNETchat</h1>
-            <p className="muted">Sua inteligência artificial avançada sem censura</p>
+          <section className="hero">
+            <h1>Apresentamos o <span className="red">SKYNETchat</span></h1>
+            <p>Sua inteligência artificial avançada sem censura</p>
             <div className="chips">
-              {chatIntro.map((chip) => (
-                <span key={chip} className="chip">{chip}</span>
+              {actions.map(({ label, icon: Icon, color }) => (
+                <button key={label} type="button" className="chip" onClick={() => setDraft(label)}>
+                  <Icon width={20} height={20} style={{ color }} />
+                  <span>{label}</span>
+                </button>
               ))}
             </div>
-          </div>
+          </section>
         ) : (
-          <div className="messages">
+          <section className="thread">
             {messages.map((message, index) => (
-              <article key={index} className={`msg ${message.role}`}>{message.text}</article>
+              <article key={index} className={`bubble ${message.role}`}>{message.text}</article>
             ))}
-          </div>
+          </section>
         )}
-        <form className="composer" onSubmit={send}>
-          <input
-            value={draft}
-            onChange={(event) => setDraft(event.target.value)}
-            placeholder="Pergunte o que quiser..."
-            aria-label="Mensagem"
-          />
-          <button type="submit">➤</button>
-        </form>
-        <p className="rating">SKYNETchat · 4.5 ★</p>
       </main>
+
+      <form className="dock" onSubmit={send}>
+        <button type="button" className="dock-plus" aria-label="Anexar"><IconPlus /></button>
+        <input
+          value={draft}
+          onChange={(event) => setDraft(event.target.value)}
+          placeholder="Pesquise sem censura..."
+          aria-label="Mensagem"
+        />
+        <button type="button" className="icon-btn muted" aria-label="Gravar áudio"><IconMic /></button>
+        <button type="submit" className="dock-send" aria-label="Voz ou enviar"><IconWave width={22} height={22} /></button>
+      </form>
     </div>
   );
 }

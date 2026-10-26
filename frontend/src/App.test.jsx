@@ -17,9 +17,10 @@ describe("skynetchat clone", () => {
         <App />
       </HashRouter>,
     );
-    expect(screen.getByText("Apresentamos o SKYNETchat")).toBeTruthy();
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Apresentamos o SKYNETchat");
     expect(screen.getByText("Histórico de conversas")).toBeTruthy();
     expect(screen.getByText("Projetos")).toBeTruthy();
+    expect(screen.getByText("Persuasão")).toBeTruthy();
   });
 
   it("envio de mensagem mostra resposta de clone (nao finge IA)", () => {

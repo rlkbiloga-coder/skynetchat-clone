@@ -18,3 +18,6 @@ Novo chat · Indique e Ganhe (referral PRO) · Monetize · Atualizações · Ima
 - Badge "SKYNETCHAT ONLINE" verde, tagline "O DIREITO À PRIVACIDADE E O ACESSO IRRESTRITO À INFORMAÇÃO É UM DIREITO UNIVERSAL DE TODOS."
 - Rótulos de segurança: E2E | AES-256 | ZERO-TRUST
 - Selo de qualidade 4.5; Instagram @skynetchat.ai; Termos de Serviço
+
+## Fidelidade visual (v2)
+Telas reconstruídas a partir de capturas reais do site em mobile (home e drawer). Tokens confirmados no CSS original baixado: `input-bg-black #1b1b1b`, `input-glow-black 0 0 15px #ffffff1a`, fontes Inter / Google Sans Flex, Tailwind v4, temas BLACK/RED/WHITE. O CSS original (320KB) e o logo estão em `site_clone_skynetchat.net/` do workspace do agente.
