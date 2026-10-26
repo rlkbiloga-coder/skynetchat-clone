@@ -21,3 +21,6 @@ Novo chat · Indique e Ganhe (referral PRO) · Monetize · Atualizações · Ima
 
 ## Fidelidade visual (v2)
 Telas reconstruídas a partir de capturas reais do site em mobile (home e drawer). Tokens confirmados no CSS original baixado: `input-bg-black #1b1b1b`, `input-glow-black 0 0 15px #ffffff1a`, fontes Inter / Google Sans Flex, Tailwind v4, temas BLACK/RED/WHITE. O CSS original (320KB) e o logo estão em `site_clone_skynetchat.net/` do workspace do agente.
+
+## Mirror 100% (v3)
+`mirror/` contém o app real baixado do origin: 103 arquivos, 5.7MB — todo o bundle SvelteKit (entry, chunks, nodes, assets CSS), as 4 páginas SSR (/login, /sign-up, /recovery, /), ícones e imagens, 0 referências quebradas (verificado por script). O Pages publica o mirror como site principal; o React clone fica em frontend/ como base para o seu próprio app.
